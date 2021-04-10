@@ -77,10 +77,7 @@ Luego ejecuta `sudo python3.9 -m venv venv` y ya debería funcionar correctament
 
 Para ejecutar el entorno virtual, justamente tenemos la ayuda del archivo "activate" dentro de la carpeta venv.
 
-```python
-# This file must be used with "source bin/activate" *from bash*
-# you cannot run it directly
-```
+"This file must be used with "source bin/activate" *from bash* you cannot run it directly"
 
 En mi caso en particual es `source venv/bin/activate`
 
@@ -127,3 +124,37 @@ Anaconda es un software completo pensado para los cientificos de datos. Nos perm
 [Instalar un GUI para WSL](https://www.youtube.com/watch?v=IL7Jd9rjgrM)
 
 Para abrir anaconda en Linux usamos `anaconda-navigator`
+
+#### Quiz
+
+- Si actualizamos algún módulo de Python dentro de nuestro entorno virtual ¿esto afecta a otras versiones del mismo módulo dentro de nuestro computador?: NO
+- ¿Con qué comando se activa un entorno virtual en Windows?: .\venv\Scripts\activate
+- Selecciona el comando para instalar requests: pip install requests
+
+## Alternativa a los ciclos: comprehensions
+
+### Listas y diccionarios anidados
+
+Es buena práctica ignorar la carpeta del entorno virtual en .gitignore.
+
+### List comprehensions
+
+`squares = [i**2 for i in range(1,101) if i % 3 != 0]` -> [element for element in iterable if condition]
+
+- element -> Representa a cada uno de los elementos a poner en la nueva lista
+- for element in iterable -> Ciclo a partir del cual se extraerán elementos de otra lista o cualquier iterable
+- if condition -> Condición opcional para filtrar los elementos del ciclo
+
+### Dictionary comprehensions
+
+`cubes = {i:i**3 for i in range(1,101) if i % 3 != 0}`-> {key:value for value in iterable if condition}
+
+- key:value -> Representa a cada una de las lalves y valores a poner en el nuevo diccionario
+- for value in iterable -> Ciclo a partir del cual se extraerán elementos de cualquier iterable
+- if condition -> Condición opcional para filtrar los elementos del ciclo
+
+### Quiz 2
+
+- ¿Puede un diccionario contener listas?: verdadero
+- En un list comprehension el ciclo es: Obligatorio
+- En un dictionary comprehension la condición es: opcional
