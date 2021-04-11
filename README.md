@@ -158,3 +158,113 @@ Es buena práctica ignorar la carpeta del entorno virtual en .gitignore.
 - ¿Puede un diccionario contener listas?: verdadero
 - En un list comprehension el ciclo es: Obligatorio
 - En un dictionary comprehension la condición es: opcional
+
+## Conceptos avanzados de funciones
+
+### Funciones anónimas: lamba
+
+Son funciones sin nombre. `lamba argumentos:expresión`
+
+Lambda solamente puede tener 1 expresión.
+
+```python
+palindrome = lambda string: string == string[::-1] #Variable stores the function value
+
+print(palindrome('ana')) # returns True
+```
+
+El código de arriba es equivalente a:
+
+```python
+    def palindrome(string):
+        return string == string[::-1]
+
+    print(palindrome('ana'))
+```
+
+### High order functions: filter, map y reduce
+
+Una función de orden superior es una función que recibe como parámetro a otra función
+
+```python
+def saludo(func):
+    func()
+
+
+def hola():
+    print('hola!')
+
+
+def adios():
+    print('adios!')
+
+
+saludo(hola) # prints hola!
+saludo(adios) #prints adios!
+```
+
+Tenemos 3 funciones de orden superior que son muy importantes en lenguaje de programación:
+
+- Filter
+- Map
+- Reduce
+
+#### Filter
+
+```python
+my_list = [1,4,5,6,9,13,19,21]
+
+odd = [i for i in my_list if i % 2 != 0]
+
+print(odd) # prints [1,5,9,13,19,21]
+```
+
+Esto es list comprehension. Ahora con Filter:
+
+```python
+my_list = [1,4,5,6,9,13,19,21]
+
+odd = list(filter(lamba x: x % 2 != 0 , my_list)) # second parameter of filter is an iterator
+
+print(odd) #prints [1,5,9,13,19,21]
+```
+
+#### Map
+
+```python
+my_list = [1,2,3,4,5]
+print([i**2 for i in my_list]) #prints [1,4,9,16,25]
+```
+
+Esto es con list comprehension. Ahora usemos map:
+
+```python
+my_list = [1,2,3,4,5]
+
+squares = list(map(lmabda x: x**2, my_list))
+
+print(squares) #prints [1,4,9,16,25]
+```
+
+#### Reduce
+
+```python
+from functools import reduce
+
+my_list = [2,2,2,2,2]
+
+all_multiplied = reduce(lambda a, b: a * b , my_list)
+
+print(all_multiplied) #prints 32
+```
+
+### Proyecto: filtrando datos
+
+`old_people = list(map(lambda worker: worker | {"old": worker["age" > 70]} , DATA))` En Python 3.9 el pipe | sirve para sumar diccionarios.
+
+### Quiz 3
+
+- ¿Cuántos argumentos como máximo puede contener una función anónima?: infinitos
+- ¿Cuál de las siguientes opciones **NO** es una función de orden superior?: open
+- ¿Qué devuelve la función reduce?: Un elemento único
+
