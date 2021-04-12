@@ -268,3 +268,156 @@ print(all_multiplied) #prints 32
 - ¿Cuál de las siguientes opciones **NO** es una función de orden superior?: open
 - ¿Qué devuelve la función reduce?: Un elemento único
 
+## Manejo de errores
+
+### Los errores en el código
+
+Errores:
+
+- Syntax Error -> Errores de escritura, Python no ejecuta el programa.
+- Exception -> Python se detiene en una línea en específica
+  - KeyboardInterrupt -> Ctrl + C
+  - KeyError -> Cuando tratamos de acceder a una llave que no existe
+  - IndexError -> Cuando tratamos de acceder a un índice que no existe
+  - FileNotFoundError -> Archivo que no existe
+  - ZeroDivisionError -> Dividir entre 0
+  - ImportError -> Intentamos importar un módulo que tiene un error
+
+Estos son solo algunos ejemplos, hay más de 50 excepciones.
+
+"Elevar", quiere decir que Python crea un objeto de tipo excepción.
+
+**Traceback** son los errores que muestran en las consolas. Lo correcto es leer desde el final hasta el principio. En el final nos dirá cuál es la excepción que ocurrió.
+
+### Debugging
+
+O depuración, en español.
+
+Al hacer debugging tenemos los botones de:
+
+- Pausa -> Detiene el programa
+- Paso siguiente -> Vamos a la siguiente línea de código
+- Meternos -> Nos vamos a meter a la función de la línea del código, vamos a tener más detalles de lo que está pasando
+- Salir -> Salimos de la línea de código
+- Reiniciar -> Reiniciamos el programa
+- Detener -> Salimos de la depuración
+
+### Manejo de excepciones
+
+```python
+try:
+    pass #Código a evaluar
+except:
+    pass #Si ocurre un error, llegará a esta parte
+```
+
+Ejemplo con try, raise, except:
+
+```python
+def palindrome(string):
+    try:
+        if len(string) == 0:
+            raise ValueError("No se pueden ingresar cadenas vacías")
+        return string == string[::-1]
+    except ValueError as ve:
+        print(ve)
+        return False
+
+
+try:
+    print(palindrome(""))
+except TypeError:
+    print("Solo se pueden ingresar strings")
+```
+
+finally no es muy usado pero aún así es necesario mencionarlo. Corresponde al final de un bloque try. Se usa en casos muy particulares, por ejemplo; cerrar un archivo, cerrar una conexión a una base de datos o liberar recursos externos.
+
+```python
+try:
+    f = open("archivo.txt")
+    # hacer cualquier cosa con nuestro archivo
+finally:
+    f.close()
+```
+
+Algo que aparece casi al final de la lectura recomendada en el documentación de Python es que se puede agregar un “else” al try-except.
+
+- TRY: En el try se coloca código que esperamos que pueda lanzar algún error.
+- EXCEPT: En el except se maneja el error, es decir, si ocurre un error dentro del bloque de código del try, se deja de ejecutar el código del try y se ejecuta lo que se haya definido en el Except.
+- ELSE: El else se ejecuta sólo si no hubo ninguna excepción lanzada desde el try
+- FINALLY: Se ejecuta SIEMPRE, haya sido lanzada la excepción o no haya sido lanzada.
+
+```python
+try:
+    pass
+except Exception:
+    print('Ocurrió una excepción')
+else:
+    print('No ocurrió ninguna excepción')
+finally:
+    print('Siempre me ejecuto')
+```
+
+### Poniendo a prueba el manejo de excepciones
+
+### Assert statements
+
+Son expresiones. Serían algo como: Código -> Assert statement y puede salir código o error.
+
+`assert condición , mensaje de error` y se lee: "Afirmo que esta condición es verdadera, si no, imprimo este mensaje de error.
+
+```python
+def palindrome(string):
+    assert len(string) > 0, "No se pueden ingresar cadenas vacías"
+    return string == string[::-1]
+
+
+print(palindrome("")) # print 'AssertError: No se pueden ingresar cadenas vacías'
+```
+
+Existe un método en Python llamado `isnumeric()` que funciona justamente con los strings.
+
+### Quiz 4
+
+- ¿Cuál de las siguientes opciones es una excepción válida?: ValueError
+- ¿Cuál es la estructura correcta de un assert statement?: assert condición, mensaje
+- ¿Cuál es la excepción que simboliza que intentamos acceder a un índice inexistente en una lista?: IndexError
+
+## Manejo de archivos
+
+### ¿Cómo trabajar con archivos?
+
+Tenemos 2 clases de archivos:
+
+- de texto -> tienen bytes por dentro que representan números y letras.
+- binarios -> tienen bytes que son cosas mucho más complejas.
+
+Con la programación en general no vamos a interactuar con los archivos binarios, pero sí con los de texto. Particularmente en el Backend se usa mucho el archivo `.json`. Mientras tanto en Ciencia de Datos se usa mucho `.csv`.
+
+Modos de apertura:
+
+- r -> Lectura (Read).
+- r+ -> Lectura y escritura.
+- w -> Escritura (Write) (sobreescribir).
+- w+ -> Escritura y lectura. Sobre escribe el archivo si existe. Crea el archivo si no existe.
+- a -> Escritura (Append) (agregar al final).
+- a+ -> Añadido (agregar contenido) y lectura. Crea el archivo si éste no existe.
+
+`with open("./ruta/del/archivo.txt" , "r") as f` -> with es un manejador contextual. Ayuda a que, en caso de que el programa se cierre de manera inesperada, el archivo no se rompa.
+
+### Trabajando con archivos de texto en Python
+
+`encoding = "utf-8"` Sirve para que Python pueda soportar caracteres del idioma español, como la "ñ" y letras con tilde.
+
+### Quiz 5
+
+- ¿Qué letra simboliza el modo de escritura sin sobrescritura de un archivo en Python?: A
+- ¿Qué método se utiliza para escribir una línea en un archivo de texto en Python?: write()
+- El parámetro `encoding` de la función `open` es: opcional
+
+## Conclusiones
+
+### Reto Final: Juego del Ahorcado o Hangman Game
+
+`os.system('cls')` -> Windows
+`os.system('clear')` -> Unix
