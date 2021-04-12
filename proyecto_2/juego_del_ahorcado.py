@@ -85,13 +85,14 @@ def play_game():
     flag_win = False
 
     try:
-      tries = -1
+      correct_tries = 0
+      incorrect_tries = 0
       while not flag_win:
         newLetter = input('Inserta una letra: ')
         if type(newLetter) != str:
           raise ValueError('Solo puedes insertar letras')
         if newLetter in words[random_number]:
-          tries += 1
+          correct_tries += 1
           print('Correcto')
           word_to_list = list(words[random_number])
           for count , letter in enumerate(word_to_list):
@@ -99,14 +100,14 @@ def play_game():
               blank_word[count] = newLetter
           print(blank_word)
           if ' _ ' not in blank_word:
-            print(f'¡Has ganado! Te ha tomado: {tries+1} intentos')
+            print(f'¡Has ganado! Te ha tomado: {correct_tries + incorrect_tries} intentos')
             flag_win = True
         else:
           print('Incorrecto')
-          tries+=1
-          print(HANGMANPICS[tries])
-          if tries == 6:
-            print(f'¡Has fallado! :( La palabra era: {words[random_number]}')
+          incorrect_tries+=1
+          print(HANGMANPICS[incorrect_tries])
+          if incorrect_tries == 6:
+            print(f'¡Has fallado! :( La palabra era: {words[random_number]} y lo intentaste: {correct_tries + incorrect_tries} veces')
             break
     except ValueError as ve:
       print(ve)
